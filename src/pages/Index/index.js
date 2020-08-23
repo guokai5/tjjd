@@ -3,16 +3,19 @@ import React,{ Component} from 'react'
 import {Carousel, Flex, Grid, WingBlank, SearchBar} from 'antd-mobile'
 // 导入axios
 import {getSwiper, getGrid, getNews} from '../../utils/api/home'
+
+
 // 导入导航图片
 import Navs from '../../utils/Navconfig'
 
 import {BASE_URL} from '../../utils/request'
-
+import {getCityInfo} from '../../utils/index'
 import './index.scss'
 
 
 class Index extends Component {
   state = {
+    cityList: { label: '' , value: '' },
     keyword:'',
     news: [],
     // 租房数据
@@ -25,6 +28,7 @@ class Index extends Component {
   }
   componentDidMount() {
     this.getAll()
+    this.getCity()
   }
   // promise优化
   getAll() {
@@ -35,6 +39,16 @@ class Index extends Component {
         this.setState({isPlay:true})
       })
     })
+  }
+
+  // 获取定位信息
+  async getCity(){
+    const res= await getCityInfo()
+    console.log(res);
+    this.setState({
+      cityList: res,
+    })
+    
   }
 
   // 轮播图
@@ -140,7 +154,7 @@ class Index extends Component {
       <Flex justify="around" className="topNav">
         <div className="searchBox">
           <div className="city" onClick={()=>{this.props.history.push('/cityList')}}>
-            北京<i className="iconfont icon-arrow" />
+           {this.state.cityList.label}  <i className="iconfont icon-arrow" />
           </div>
           <SearchBar
             value={this.state.keyword}

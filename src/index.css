@@ -23,3 +23,6 @@ ul,li {
     touch-action: pan-y;
     box-sizing: border-box; 
 }
+#root{
+    height: 100%;
+}
