@@ -1,13 +1,19 @@
-import React, { Component}from 'react';
+import React from 'react'
 
-class House extends Component {
+import { Flex } from 'antd-mobile'
+
+import Filter from './components/Filter'
+// 导入样式
+import styles from './index.module.css'
+
+
+export default class HouseList extends React.Component {
   render() {
-    return(
-      <div>
-        <h1>房屋列表</h1>
+    return (
+      <div className={styles.root}>
+        {/* 条件筛选栏 */}
+        <Filter />
       </div>
     )
   }
 }
-
-export default House
