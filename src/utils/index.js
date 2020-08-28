@@ -28,6 +28,7 @@ export function getCityInfo() {
  }
 
 //  本地数据持久化
+const HZW_TOKEN = 'HZW_TOKEN'
 // 储存
 export function setLocalData (key, val) {
   localStorage.setItem(key, val)
@@ -41,6 +42,7 @@ export function getLocalData (key) {
 export function delLocalData (key) {
   localStorage.removeItem(key)
 }
+export {HZW_TOKEN}
 
 /**
  * 本地数据持久化（数据存储）

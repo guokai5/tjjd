@@ -6,7 +6,7 @@ import CityList from './pages/cityList'
 import Map from './pages/map'
 import NotFound from './pages/NotFound'
 import HouseDetail from './components/HouseDetail';
-
+import Login from './pages/Login'
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
         <Route path="/cityList" component={CityList}></Route>
         <Route path="/map" component={Map}></Route>
         <Route path="/detail/:id" component={HouseDetail}></Route>
+        <Route path="/login" component={Login}></Route>
         <Route component={NotFound}></Route>
         
       </Switch>
