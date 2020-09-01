@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import {Toast} from 'antd-mobile'
+import { getToken } from '.';
 
 
 const BASE_URL = 'http://api-haoke-dev.itheima.net'
@@ -12,6 +13,11 @@ const instance = axios.create({
 instance.interceptors.request.use(function (config) {
   // Do something before request is sent
   Toast.loading('加载中...',0)
+  // user获取数据全部附上token,出白名单路径
+  let rurl = config.url, whitePath = ['/user/login','/user/registered']
+  if (rurl.startsWith('/user') && !whitePath.includes(whitePath)) {
+    config.headers.authorization = getToken()
+  }
   return config;
 }, function (error) {
   // Do something with request error

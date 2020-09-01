@@ -42,6 +42,24 @@ export function getLocalData (key) {
 export function delLocalData (key) {
   localStorage.removeItem(key)
 }
+
+// token相关方法
+// 获取
+export function getToken() {
+  return getLocalData(HZW_TOKEN)
+}
+// 设置
+export function setToken(token){
+  setLocalData(HZW_TOKEN,token)
+}
+// 删除
+export function delToken(token){
+  delLocalData(HZW_TOKEN)
+}
+// 判断是否登录
+export function isAuth() {
+  return !!getToken()
+}
 export {HZW_TOKEN}
 
 /**

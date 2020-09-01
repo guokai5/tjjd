@@ -11,7 +11,17 @@ export function getcityData(level=1){
     params:{level}
   })
 }
-
+// 热门城市
 export function getHotCity(){ 
   return request.get('/area/hot')
+}
+
+// 查询小区
+export function getCommunity(name,id) { 
+  return request.get('/area/community',{
+    params:{
+      name,
+      id
+    }
+  })
 }

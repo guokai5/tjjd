@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import styles from './index.module.css'
 
 import { login } from '../../utils/api/login'
-import { setLocalData, HZW_TOKEN } from '../../utils'
+import { setToken } from '../../utils'
 import {withFormik} from 'formik'
 import * as yup from 'yup';
 // 验证规则：
@@ -105,11 +105,17 @@ const NewLogin = withFormik({
     const {status, data, description} = await login({username, password})
     if (status === 200) {
       Toast.success(description,1,()=>{
-        props.history.push('/home/profile')
+        // 如果存在BackUrl跳回url
+        if(props.location.BackUrl){
+          props.history.replace(props.location.BackUrl)
+        } else {
+          // 不存在返回个人中心
+          props.history.replace('/home/profile')
+        }
+        
       })
       // 保存token
-      setLocalData(HZW_TOKEN,data.token)
-      
+      setToken(data.token) 
     } else {
       Toast.success(description)
     }

@@ -7,6 +7,9 @@ import Map from './pages/map'
 import NotFound from './pages/NotFound'
 import HouseDetail from './components/HouseDetail';
 import Login from './pages/Login'
+import Rent from './pages/Rent'
+import RentAdd  from './pages/Rent/Add'
+import RentSearch from './pages/Rent/Search'
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
         <Route path="/map" component={Map}></Route>
         <Route path="/detail/:id" component={HouseDetail}></Route>
         <Route path="/login" component={Login}></Route>
+        <Route exact path="/rent" exact component={Rent} />
+        <Route path="/rent/add" component={RentAdd} />
+        <Route path="/rent/search" component={RentSearch} />
         <Route component={NotFound}></Route>
         
       </Switch>

@@ -5,6 +5,8 @@ import styles from './index.module.css'
 import HousePackage from '../HousePackage'
 import { BASE_URL } from '../../utils/request'
 import { getDetail } from '../../utils/api/house'
+import { isAuth } from '../../utils'
+import { checkFav, delFav, addFav } from '../../utils/api/login'
 
 
 // 猜你喜欢
@@ -106,8 +108,19 @@ export default class HouseDetail extends Component {
 
     // 获取房屋数据
     this.getHouseDetail()
+    this.checkFav()
   }
 
+  async checkFav() {
+    if(!isAuth()) return
+    const {id} = this.props.match.params
+    const {status, data} = await checkFav(id)
+    if(status === 200) {
+      this.setState({
+        isFavorite: data.isFavorite
+      })
+    }
+  }
   /* 
       收藏房源：
 
@@ -129,6 +142,36 @@ export default class HouseDetail extends Component {
         }
       ])
     */
+  
+   handleFavorite= async () => {
+     const {replace} = this.props.history
+     if (!isAuth()) {
+      //  未登录
+      alert('提示', '登录后才能收藏房源，是否去登录?', [
+        { text: '取消' },
+        {
+          text: '去登录',
+          onPress: () => {
+            replace({pathname: '/login',BackUrl: this.props.location.pathname})
+          }
+        }
+      ])
+     }else {
+      //  已登录
+      const {isFavorite} = this.state
+      const {id} =this.props.match.params
+       if(isFavorite) {
+        //  已收藏调删除接口
+         const res = await delFav(id)
+         res.status ===200 && this.setState({isFavorite:false})
+       }else{
+        //  未收藏调添加接口
+         const res = await addFav(id)
+         res.status ===200 && this.setState({isFavorite:true})
+       }
+     }
+     
+   }
 
   // 获取房屋详细信息
   async getHouseDetail() {
