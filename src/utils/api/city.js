@@ -25,3 +25,9 @@ export function getCommunity(name,id) {
     }
   })
 }
+
+export function getMapDataById (id) {
+  return request.get('/area/map', {
+    params: { id }
+  })
+}
